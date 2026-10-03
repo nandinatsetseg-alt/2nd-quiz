@@ -28,8 +28,8 @@ const CreateQuizPage = () => {
   };
   const updateQuestion = (qIndex, field, value) => {
     const newQuestion = questions.map((question, index) => {
-      const finalValue = field === "points" ? Number(value) : value;
-      return index === qIndex ? { ...question, [field]: value } : question;
+      const finalValue = field === "point" ? Number(value) : value;
+      return index === qIndex ? { ...question, [field]: finalValue } : question;
     });
     setQuestions(newQuestion);
   };
@@ -58,7 +58,28 @@ const CreateQuizPage = () => {
       .insert({ quizName: quiz })
       .select("*")
       .single();
-    console.log(response);
+
+    const quizId = response.data.id;
+
+    for (let i = 0; i < questions.length; i++) {
+      const response = await supabase
+        .from("quiz_question")
+        .insert({
+          question: questions[i].question,
+          quizId: quizId,
+          point: questions[i].point,
+        })
+        .select("*");
+      const questionId = response.data[0].id;
+      for (let j = 0; j < questions[i].answers.length; j++) {
+        await supabase.from("questions_answers").insert({
+          questionId: questionId,
+          answer: questions[i].answers[j],
+          isCorrect: questions[i].correctIndex === j,
+        });
+      }
+      console.log(response, "question");
+    }
   };
   console.log(questions);
   return (
@@ -75,6 +96,7 @@ const CreateQuizPage = () => {
             <div key={index}>
               <input
                 placeholder="question"
+                value={question.question ?? ""}
                 onChange={(e) =>
                   updateQuestion(index, "question", e.target.value)
                 }
@@ -82,6 +104,7 @@ const CreateQuizPage = () => {
               <input
                 placeholder="point"
                 type="number"
+                value={question.point}
                 onChange={(e) =>
                   updateQuestion(index, "point", Number(e.target.value))
                 }
