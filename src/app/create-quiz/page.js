@@ -98,7 +98,6 @@ const CreateQuizPage = () => {
   return (
     <div className="min-h-screen bg-slate-50/50 p-6 md:p-10">
       <div className="mx-auto max-w-4xl space-y-8">
-        {/* Header and Quiz Info */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="space-y-1.5 flex-1 max-w-2xl">
             <div className="flex items-center gap-2 text-primary font-medium text-sm mb-1">
@@ -142,8 +141,6 @@ const CreateQuizPage = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Questions List */}
         <div className="space-y-6">
           {questions.map((question, index) => {
             return (
@@ -164,7 +161,6 @@ const CreateQuizPage = () => {
 
                 <CardContent className="space-y-6 pt-6">
                   <div className="grid gap-4 md:grid-cols-4">
-                    {/* Question Text Field */}
                     <div className="space-y-2 md:col-span-3">
                       <Label className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                         <HelpCircle className="h-3.5 w-3.5 text-slate-400" />
@@ -180,7 +176,6 @@ const CreateQuizPage = () => {
                       />
                     </div>
 
-                    {/* Points Field */}
                     <div className="space-y-2 md:col-span-1">
                       <Label className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                         <Trophy className="h-3.5 w-3.5 text-slate-400" />
@@ -198,7 +193,6 @@ const CreateQuizPage = () => {
                     </div>
                   </div>
 
-                  {/* Answers Section */}
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center justify-between">
                       <Label className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
@@ -258,7 +252,6 @@ const CreateQuizPage = () => {
           })}
         </div>
 
-        {/* Add Question Button */}
         <div className="pt-2">
           <Button
             onClick={addQuestion}
